@@ -1,0 +1,70 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymleaf/layout"
+      layout:decorator="template">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des vehicules</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+    <section layout:fragment="content">
+        <div class="col-md-12">
+            <a class="navbar-link" th:href="@{/addVehicule}">Saisie d'une nouvelle voiture</a>
+        </div>
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>MATRICULE</th>
+                        <th>MARQUE</th>
+                        <th>MODELE</th>
+                        <th>TYPE</th>
+                        <th>COULEUR</th>
+                        <th>TARIF LOCATION</th>
+                        <th>STATUS</th>
+                        <th>MODIFIER</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="v:${veh}">
+                        <td th:text="${v.matricule}"></td>
+                        <td th:text="${v.modeleVehicule.marqueVehicule.nomMarque}"></td>
+                        <td th:text="${v.modeleVehicule.nomModele}"></td>
+                        <td th:text="${v.typeVehicule.libelleType}"></td>
+                        <td th:text="${v.coleur}"></td>
+                        <td th:text="${v.tarifLoction.prixLocation}"></td>
+                        <td th:text="${v.status == false}?'Disponible':'En location'" th:style = "${v.status == false} ? 'color: green' : 'color: red' " ></td>
+                        <td><a href="#" th:href="@{/edit/{id}(id=${v.id})}">editer</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="container">
+                <ul class="nav nav-pills">
+                    <li th:each="p:${pages}" th:class="${p==pageCourante}?active:''">
+                        <a th:href="@{listeVehicule(page=${p})}"  th:text="${p}"></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#menu1">Informations Vehicule</a></li>
+                    <li><a data-toggle="tab" href="#menu2">Images</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="menu1" class="tab-pane fade in active">
+                        <h3>Menu 1</h3>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
+                        <h3>Menu 2</h3>
+                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</body>
+</html>
